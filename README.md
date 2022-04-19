@@ -1,4 +1,4 @@
-# eth-solidity
+# Web3 Development
 Smart Contracts
 
-Writing smart contracts in Solidity + tests 
+Truffle + Ganache + Mocha + Solidity + JS
