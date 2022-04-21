@@ -1,18 +1,26 @@
 pragma solidity ^0.4.17;
 // linter warnings (red underline) about pragma version can igonored!
 
+contract ERC20Token {
+    string public name;
+     mapping(address => uint256) public balances; 
+
+     function mint() public {
+        balances[tx.origin] ++; 
+     }
+    
+}
+
+
+
 // contract code will go here
 contract Transaction {
-    mapping(address => uint256) public balances; 
     address payable wallet; 
+    address public token; 
 
-    event Purchase(
-        address indexed _buyer, 
-        uint256 _amount 
-    );
-
-    constructor(address payable _wallet) public {
+    constructor(address payable _wallet, address _token) public {
         wallet = _wallet; 
+        token = _token; 
     }
 
     function() external payable {
@@ -20,8 +28,8 @@ contract Transaction {
     }
 
     function buyToken() public payable{
-        balances[msg.sender] += 1; 
+        ERC20Token _token = ERC20Token(address(token)); 
+        _token.mint(); 
         wallet.transfer(msg.value); 
-        emit Purchase(msg.sender, 1); 
     }
 }
