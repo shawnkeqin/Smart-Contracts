@@ -49,5 +49,16 @@ contract Campaign {
     }
 
 
+    function approveRequest(uint index) public {
+        Request storage request = requests[index]; 
+
+        require(approvers[msg.sender]);
+        require(!request[index].approvals[msg.sender]); 
+
+        request[index].approvals[msg.sender] = true; 
+        request[index].approvalCount++; 
+
+    }
+
 
 }
